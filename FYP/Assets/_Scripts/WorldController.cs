@@ -80,8 +80,6 @@ public class WorldController : MonoBehaviour {
         }
 
         UpdateTrack();
-        
-
     }
 
 
@@ -96,11 +94,22 @@ public class WorldController : MonoBehaviour {
                 //If the track piece is a base piece the next one will be a random exercise
                 if (trackers[i] == 0)
                 {
-                    trackers[i] = rand.Next(minRand, maxRand);
+                    trackers[i] = rand.Next(minRand, maxRand + 1);
                     trackPiece[i] = Instantiate(platformLayout[trackers[i]], new Vector3(0, 0, spawnPointFar), transform.rotation) as GameObject;
-                    if (trackers[i] == 1)
+                    //Set up the track pieces
+                    switch (trackers[i])
                     {
-                        ObstacleSpawn(i);
+                        case 1:
+                            ObstacleSpawn(i);
+                            break;
+                        case 2:
+                            OneLegSpawn(i);
+                            break;
+                        case 3:
+                            JumpSpawn(i);
+                            break;
+                        default:
+                            break;
                     }
                 }
                 //If the track piece is an exercise, the next one will be a base piece
@@ -115,27 +124,55 @@ public class WorldController : MonoBehaviour {
     }
     void ObstacleSpawn(int val)
     {
-        //random position of obstacles on the track based on difficulty
-        //difficulty = rand.Next(1, 3);
-        if (difficulty == 1)
+        switch (difficulty)
         {
-            trackPiece[val].transform.Find("ObstacleMid").Translate(rand.Next(-4, 4), 2, 0);
+            case 1:
+                trackPiece[val].transform.Find("ObstacleMid").Translate(rand.Next(-4, 5), 2, 0);
+                break;
+            case 2:
+                trackPiece[val].transform.Find("ObstacleFront").Translate(rand.Next(-4, 5), 2, 0);
+                trackPiece[val].transform.Find("ObstacleBack").Translate(rand.Next(-4, 5), 2, 0);
+                break;
+            case 3:
+                trackPiece[val].transform.Find("ObstacleFront").Translate(rand.Next(-4, 5), 2, 0);
+                trackPiece[val].transform.Find("ObstacleMid").Translate(rand.Next(-4, 5), 2, 0);
+                trackPiece[val].transform.Find("ObstacleBack").Translate(rand.Next(-4, 5), 2, 0);
+                break;
+            default:
+                break;
         }
-        else if (difficulty == 2)
-        {
-            trackPiece[val].transform.Find("ObstacleFront").Translate(rand.Next(-4, 4), 2, 0);
-            trackPiece[val].transform.Find("ObstacleBack").Translate(rand.Next(-4, 4), 2, 0);
-        }
-        else
-        {
-            trackPiece[val].transform.Find("ObstacleFront").Translate(rand.Next(-4, 4), 2, 0);
-            trackPiece[val].transform.Find("ObstacleMid").Translate(rand.Next(-4, 4), 2, 0);
-            trackPiece[val].transform.Find("ObstacleBack").Translate(rand.Next(-4, 4), 2, 0);
-        }
-
         trackPiece[val].transform.Find("ObstacleFront").localScale = trackPiece[val].transform.Find("ObstacleFront").localScale * difficulty * 0.75f;
         trackPiece[val].transform.Find("ObstacleMid").localScale = trackPiece[val].transform.Find("ObstacleMid").localScale * difficulty * 0.75f;
         trackPiece[val].transform.Find("ObstacleBack").localScale = trackPiece[val].transform.Find("ObstacleBack").localScale * difficulty * 0.75f;
+    }
+    void OneLegSpawn(int val)
+    {
+        //Randomly pick a side
+        int side = rand.Next(1, 3);
+        if (side == 1)
+        {
+            //Right
+            trackPiece[val].transform.Find("OLMid").Translate(-3, 0, 0);
+        }
+        else if (side == 2)
+        {
+            //Left
+            trackPiece[val].transform.Find("OLMid").Translate(3, 0, 0);
+        }
+
+    }
+    void JumpSpawn(int val)
+    {
+        if (difficulty == 1)
+        {
+            trackPiece[val].transform.Find("WallMid").Translate(0, 3.5f, 0);
+        }
+        else
+        {
+            trackPiece[val].transform.Find("WallFront").Translate(0, 3.5f, 0);
+            trackPiece[val].transform.Find("WallBack").Translate(0, 3.5f, 0);
+        }
+         
     }
     void DifficultySetting()
     {
