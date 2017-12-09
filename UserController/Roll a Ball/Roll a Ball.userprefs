@@ -1,0 +1,24 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Skript\PlayerController.cs">
+    <Files>
+      <File FileName="Assets\Skript\PlayerController.cs" Line="142" Column="19" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="P:\Unity\Roll a Ball\Assets\Skript\PlayerController.cs" line="74" column="1" />
+      <Breakpoint file="P:\Unity\Roll a Ball\Assets\Skript\PlayerController.cs" line="62" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="Assets\Skript\PlayerController.cs" line="47" offsetX="475" offsetY="760" expression="moveHigh" liveUpdate="False" />
+    <Watch file="Assets\Skript\PlayerController.cs" line="48" offsetX="473" offsetY="795" expression="fCurrentPos" liveUpdate="False" />
+    <Watch file="Assets\Skript\PlayerController.cs" line="49" offsetX="469" offsetY="830" expression="fPlanedPos" liveUpdate="False" />
+    <Watch file="Assets\Skript\PlayerController.cs" line="56" offsetX="512" offsetY="879" expression="moveHorizontal" liveUpdate="False" />
+    <Watch file="Assets\Skript\PlayerController.cs" line="58" offsetX="496" offsetY="916" expression="speed" liveUpdate="False" />
+    <Watch file="Assets\Skript\PlayerController.cs" line="62" offsetX="656" offsetY="729" expression="fCurrentTime" liveUpdate="False" />
+    <Watch file="Assets\Skript\PlayerController.cs" line="62" offsetX="663" offsetY="765" expression="fStartTime" liveUpdate="False" />
+    <Watch file="Assets\Skript\PlayerController.cs" line="73" offsetX="468" offsetY="980" expression="moveHorizontal" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+</Properties>
