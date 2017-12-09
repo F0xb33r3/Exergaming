@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour {
 
 				//update position
 				moveHorizontal = Input.GetAxis("Horizontal");
-				Vector3 movement = new Vector3 (1.0f, moveHigh, moveVertical);
+				Vector3 movement = new Vector3 (moveHorizontal, moveHigh, moveVertical);
 				rb.AddForce (movement*speed);
 			} else {
 				CheckBalance();
