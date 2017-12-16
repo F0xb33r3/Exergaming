@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 	private float fStartPos;
 	private bool bJumpUp;
 
-	private enum Direction {None, Up, Right, Down, Left};
+	private enum Direction {None, LeaningLeft, LeaningRight, Jumping, JumpingOnLeftLeg, JumpingOnRightLeg, BalancingLeftLeg, BalancingRightLeg};
 	int CurrentDirection;
 
     void Start () //run before randering a frame
@@ -35,33 +35,49 @@ public class PlayerController : MonoBehaviour {
     void FixedUpdate () //run before perform phisical cacluations
 	{	
 		//setting of aim
-		if (Input.GetKey (KeyCode.UpArrow) && CurrentDirection == (int)Direction.None) {// jump +y axis
+
+		// Balance on one Leg
+		if(Input.GetKey (KeyCode.RightArrow) && Input.GetKey (KeyCode.DownArrow) && CurrentDirection == (int)Direction.None){
+			//TODO
+			CurrentDirection = (int)Direction.LeaningRight;
+		} else if(Input.GetKey (KeyCode.LeftArrow) && Input.GetKey (KeyCode.DownArrow) && CurrentDirection == (int)Direction.None){
+			//TODO
+			CurrentDirection = (int)Direction.LeaningLeft;
+		} else
+			
+		// Jumping
+		if(Input.GetKey (KeyCode.RightArrow) && Input.GetKey (KeyCode.UpArrow) && CurrentDirection == (int)Direction.None){
+			//TODO
+			CurrentDirection = (int)Direction.JumpingOnRightLeg;
+		} else if(Input.GetKey (KeyCode.LeftArrow) && Input.GetKey (KeyCode.UpArrow) && CurrentDirection == (int)Direction.None){
+			//TODO
+			CurrentDirection = (int)Direction.JumpingOnLeftLeg;
+		} else if (Input.GetKey (KeyCode.UpArrow) && CurrentDirection == (int)Direction.None) {// jump +y axis
 			moveHorizontal = moveVertical = 0.0f;
 			fCurrentPos =  rb.position.z;
 			fPlanedPos = fCurrentPos + fJumpHigh;
 			fStartPos = rb.position.z;
 			bJumpUp = true;
 			fStartTime = Time.fixedTime;
-			CurrentDirection = (int)Direction.Up;
-
-		} else if (Input.GetKeyDown (KeyCode.DownArrow) && CurrentDirection == (int)Direction.None) {
-			//TODO
-			CurrentDirection = (int)Direction.Down;
-
-		} else if (Input.GetKey (KeyCode.RightArrow) && CurrentDirection == (int)Direction.None) {// move right +z axis
+			CurrentDirection = (int)Direction.Jumping;
+		} else
+		
+		// Leaning
+		if (Input.GetKey (KeyCode.RightArrow) && CurrentDirection == (int)Direction.None) {// move right +z axis
 			moveHigh = moveVertical = 0.0f;
 			fCurrentPos =  rb.position.z;
 			fPlanedPos = fCurrentPos + fSizeOfOnePath;
 			fStartTime = Time.fixedTime;
-			CurrentDirection = (int)Direction.Right;
+			CurrentDirection = (int)Direction.LeaningRight;
 
 		} else if (Input.GetKey (KeyCode.LeftArrow) && CurrentDirection == (int)Direction.None) { // move left -z axis (only horizontal)
 			moveHigh = moveVertical = 0.0f;
 			fCurrentPos =  rb.position.z;
 			fPlanedPos = fCurrentPos - fSizeOfOnePath;
 			fStartTime = Time.fixedTime;
-			CurrentDirection = (int)Direction.Left;
+			CurrentDirection = (int)Direction.LeaningLeft;
 		} 
+			
 
 		//check Timeout
 		if(fCurrentTime-fStartTime > fTimeOut && CurrentDirection != (int)Direction.None){
@@ -69,20 +85,39 @@ public class PlayerController : MonoBehaviour {
 			return;	
 		}
 
-		//running
-		if (Input.GetKey (KeyCode.UpArrow) && CurrentDirection == (int)Direction.Up) {
+
+		// Balancing on One Leg
+		if (Input.GetKey (KeyCode.RightArrow) && Input.GetKey (KeyCode.DownArrow) && CurrentDirection == (int)Direction.BalancingRightLeg) {
+			fCurrentTime = Time.fixedTime;
+			//TODO Function
+		} else if (Input.GetKey (KeyCode.LeftArrow) && Input.GetKey (KeyCode.DownArrow) && CurrentDirection == (int)Direction.BalancingLeftLeg) {
+			fCurrentTime = Time.fixedTime;
+			//TODO Function
+		} else
+			
+		//Jumping 
+		if (Input.GetKey (KeyCode.RightArrow) && Input.GetKey (KeyCode.UpArrow) && CurrentDirection == (int)Direction.JumpingOnRightLeg) {
+			fCurrentTime = Time.fixedTime;
+			//TODO Function
+		} else if (Input.GetKey (KeyCode.LeftArrow) && Input.GetKey (KeyCode.UpArrow) && CurrentDirection == (int)Direction.JumpingOnLeftLeg) {
+			fCurrentTime = Time.fixedTime;
+			//TODO Function
+		} else if (Input.GetKey (KeyCode.UpArrow) && CurrentDirection == (int)Direction.Jumping) {
 			fCurrentTime = Time.fixedTime;
 			Jump ();
-		} else if (Input.GetKey (KeyCode.DownArrow) && CurrentDirection == (int)Direction.Down) {
+		} else 		
+				
+		// Leaning
+		if (Input.GetKey (KeyCode.RightArrow) && CurrentDirection == (int)Direction.LeaningRight) {
 			fCurrentTime = Time.fixedTime;
-			Duck();
-		} else if (Input.GetKey (KeyCode.RightArrow) && CurrentDirection == (int)Direction.Right) {
+			LeanRight ();
+		} else if (Input.GetKey (KeyCode.LeftArrow) && CurrentDirection == (int)Direction.LeaningLeft) {
 			fCurrentTime = Time.fixedTime;
-			GoRight ();
-		} else if (Input.GetKey (KeyCode.LeftArrow) && CurrentDirection == (int)Direction.Left) {
-			fCurrentTime = Time.fixedTime;
-			GoLeft ();
-		} else if (CurrentDirection != (int)Direction.None){
+			LeanLeft ();
+		} else 
+					
+ 		// prefent falling
+		if (CurrentDirection != (int)Direction.None){
 			//balanced lost -> do error or give time to get balance back TODO
 		}
 		return;
@@ -95,7 +130,7 @@ public class PlayerController : MonoBehaviour {
 		}*/
 	}
 
-	void GoLeft(){ // move left -z axis (only horizontal)
+	void LeanLeft(){ // move left -z axis (only horizontal)
 		//core function
 		fCurrentPos = rb.position.z;
 		if (fCurrentPos > fPlanedPos) { //going left has to get smaller
@@ -104,7 +139,7 @@ public class PlayerController : MonoBehaviour {
 			//update position
 			moveHorizontal = Input.GetAxis("Horizontal");
 			Vector3 movement = new Vector3 (moveHorizontal, moveHigh, moveVertical);
-			rb.AddForce (movement*speed);
+			rb.transform.position += movement*speed;
 		} else {
 			CurrentDirection = (int)Direction.None;
 			CheckBalance();
@@ -112,16 +147,17 @@ public class PlayerController : MonoBehaviour {
 		return;
 	}
 
-	void GoRight(){ // move right +z axis
+	void LeanRight(){ // move right +z axis
 		//core function
 		fCurrentPos = rb.position.z; 
+
 		if (fCurrentPos < fPlanedPos) { //going left has to get bigger
 			//get balance values for adaptive settings afterwards TODO
 
 			//update position
 			moveHorizontal = Input.GetAxis("Horizontal");
 			Vector3 movement = new Vector3 (moveHorizontal, moveHigh, moveVertical);
-			rb.AddForce (movement*speed);
+			rb.transform.position += movement*speed;
 		} else {
 			CurrentDirection = (int)Direction.None;
 			CheckBalance();
@@ -140,7 +176,7 @@ public class PlayerController : MonoBehaviour {
 			//update position
 			moveHigh = Input.GetAxis ("Vertical");
 			Vector3 movement = new Vector3 (moveHorizontal, moveHigh, moveVertical);
-			rb.AddForce (movement * speed);
+			rb.transform.position += movement*speed;
 		} else {
 			bJumpUp = false;
 		} 
@@ -152,15 +188,10 @@ public class PlayerController : MonoBehaviour {
 			//update position
 			moveHigh = Input.GetAxis("Vertical")*(-1);
 			Vector3 movement = new Vector3 (moveHorizontal, moveHigh, moveVertical);
-			rb.AddForce (movement*speed);
+			rb.transform.position += movement*speed;
 		} else {
 			CurrentDirection = (int)Direction.None;
 			CheckBalance();				
 		}
-	}
-
-	void Duck () { // lean back do not anything solely change animation??
-		//TODO
-		CurrentDirection = (int)Direction.None;
-	}   
+	}  
 }
