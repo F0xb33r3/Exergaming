@@ -7,6 +7,8 @@ TagManager:
   - Front
   - Mid
   - Back
+  - Obstacle
+  - Pit
   layers:
   - Default
   - TransparentFX

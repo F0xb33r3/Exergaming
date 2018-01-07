@@ -48,7 +48,7 @@ public class WorldController : MonoBehaviour {
     {
 
         //initialise the first platforms
-        currentSection = Instantiate(platformLayout[currentTracker], new Vector3(0, 0, 2.0f), transform.rotation) as GameObject;
+        currentSection = Instantiate(platformLayout[currentTracker], new Vector3(0, 0, 0.0f), transform.rotation) as GameObject;
         nextSection = Instantiate(platformLayout[nextTracker], new Vector3(0, 0, spawnPoint), transform.rotation) as GameObject;
         farSection = Instantiate(platformLayout[farTracker], new Vector3(0, 0, spawnPointFar), transform.rotation) as GameObject;
 
@@ -68,15 +68,14 @@ public class WorldController : MonoBehaviour {
         scrollSpeed = new Vector3(0.0f, 0.0f, speed);
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        //Sets speed of track
-        DifficultySetting();
 
         //move the track
         for (int i = 0; i < TRACK_SIZE; i++)
         {
-            ScrollingWorld(trackPiece[i]);
+            //ScrollingWorld(trackPiece[i]);
+            trackPiece[i].transform.position -= scrollSpeed;
         }
 
         UpdateTrack();
@@ -107,6 +106,12 @@ public class WorldController : MonoBehaviour {
                             break;
                         case 3:
                             JumpSpawn(i);
+                            break;
+                        case 4:
+                            StepSpawn(i);
+                            break;
+                        case 5:
+                            DifJumpSpawn(i);
                             break;
                         default:
                             break;
@@ -174,9 +179,71 @@ public class WorldController : MonoBehaviour {
         }
          
     }
-    void DifficultySetting()
+    void StepSpawn(int val)
     {
-    
+        if (difficulty == 1)
+        {
+            
+        }
+        else
+        {
+            
+        }
+
+    }
+    void DifJumpSpawn(int val)
+    {
+        if (difficulty == 1)
+        {
+            int side = rand.Next(1,3);
+            //spawns the platforms on the same side
+            if (side == 1)
+            {
+                trackPiece[val].transform.Find("Pad2").Translate(0, 1.0f, 0);
+                trackPiece[val].transform.Find("Pad4").Translate(0, 1.0f, 0);
+            }
+            else
+            {
+                trackPiece[val].transform.Find("Pad3").Translate(0, 1.0f, 0);
+                trackPiece[val].transform.Find("Pad5").Translate(0, 1.0f, 0);
+            }
+        }
+        else
+        {
+            int front = rand.Next(1, 3);
+            int back = rand.Next(1, 3);
+            //Spawns random pads
+            if (front == 1)
+            {
+                trackPiece[val].transform.Find("Pad2").Translate(0, 1.0f, 0);
+            }
+            else
+            {
+                trackPiece[val].transform.Find("Pad3").Translate(0, 1.0f, 0);
+            }
+            if (back == 1)
+            {
+                trackPiece[val].transform.Find("Pad4").Translate(0, 1.0f, 0);
+            }
+            else
+            {
+                trackPiece[val].transform.Find("Pad5").Translate(0, 1.0f, 0);
+            }
+        }
+
+    }
+    public void UpdateSpeed(float v)
+    {
+        speed += v;
+        if (speed < minSpeed)
+        {
+            speed = minSpeed;
+        }
+        else if(speed > maxSpeed)
+        {
+            speed = maxSpeed;
+        }
+        scrollSpeed = new Vector3(0.0f, 0.0f, speed);
     }
     void ScrollingWorld(GameObject g)
     {
