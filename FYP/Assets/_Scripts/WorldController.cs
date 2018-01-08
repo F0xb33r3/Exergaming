@@ -6,11 +6,14 @@ using UnityEngine;
 public class WorldController : MonoBehaviour {
 
     public GameObject[] platformLayout = new GameObject[6];
+    Camera cam;
 
     private int[] trackers = new int[3];
     private int currentTracker = 0;
     private int nextTracker = 1;
     private int farTracker = 0;
+
+    bool earthquake = true;
 
     //Destroys track off screen
     public float killPoint;
@@ -46,6 +49,12 @@ public class WorldController : MonoBehaviour {
 
     void Start()
     {
+        //Initialise camera obj
+        GameObject camOb = GameObject.FindWithTag("MainCamera");
+        if (camOb != null)
+        {
+            cam = camOb.GetComponent<Camera>();
+        }
 
         //initialise the first platforms
         currentSection = Instantiate(platformLayout[currentTracker], new Vector3(0, 0, 0.0f), transform.rotation) as GameObject;
@@ -66,6 +75,8 @@ public class WorldController : MonoBehaviour {
         trackers[2] = farTracker;
 
         scrollSpeed = new Vector3(0.0f, 0.0f, speed);
+
+        StartCoroutine(Earthquake());
     }
 
     void Update()
@@ -249,5 +260,17 @@ public class WorldController : MonoBehaviour {
     void ScrollingWorld(GameObject g)
     {
         g.transform.position -= scrollSpeed;
+    }
+
+    //Flashes 
+    IEnumerator Earthquake()
+    {
+        while(earthquake)
+        {
+            yield return new WaitForSeconds(rand.Next(5, 10));
+            Debug.Log("Shake");
+            //Earthquake
+            cam.GetComponent<CameraShake>().SetTimer(1.0f);
+        }    
     }
 }
