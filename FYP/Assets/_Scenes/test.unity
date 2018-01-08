@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -289,18 +289,18 @@ MonoBehaviour:
   - {fileID: 1232494071150802, guid: 55ca574b3b6e39043a4d23f86752cbde, type: 2}
   - {fileID: 1435351589542188, guid: e90b4cea3c50e3346bc724d9d6b978b2, type: 2}
   killPoint: -30
-  speed: 0.4
+  speed: 0.5
   minSpeed: 0.2
   maxSpeed: 0.5
   spawnPoint: 30
   spawnPointFar: 60
   minRand: 1
-  maxRand: 5
+  maxRand: 1
   blockade:
   - {fileID: 1128516937520142, guid: 66c7a66c0f78a15468e8da62404b390d, type: 2}
   - {fileID: 1128516937520142, guid: 66c7a66c0f78a15468e8da62404b390d, type: 2}
   - {fileID: 1128516937520142, guid: 66c7a66c0f78a15468e8da62404b390d, type: 2}
-  difficulty: 2
+  difficulty: 3
 --- !u!1 &1657360330
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,13 +611,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2049742406}
-  m_LocalRotation: {x: 0.3594268, y: 0, z: 0, w: 0.9331733}
+  m_LocalRotation: {x: 0.35836798, y: 0, z: 0, w: 0.93358046}
   m_LocalPosition: {x: 0, y: 10.9, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 42.13, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 42, y: 0, z: 0}
 --- !u!114 &2049742411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,3 +630,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camTransform: {fileID: 0}
+  shakeAmount: 0.5

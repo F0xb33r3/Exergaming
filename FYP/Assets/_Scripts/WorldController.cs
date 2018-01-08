@@ -68,8 +68,9 @@ public class WorldController : MonoBehaviour {
         scrollSpeed = new Vector3(0.0f, 0.0f, speed);
     }
 
-    void FixedUpdate()
+    void Update()
     {
+        UpdateTrack();
 
         //move the track
         for (int i = 0; i < TRACK_SIZE; i++)
@@ -78,7 +79,7 @@ public class WorldController : MonoBehaviour {
             trackPiece[i].transform.position -= scrollSpeed;
         }
 
-        UpdateTrack();
+        
     }
 
 
