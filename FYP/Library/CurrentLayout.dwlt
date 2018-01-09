@@ -45,7 +45,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 342}
   m_MaxSize: {x: 12008, y: 8042}
   vertical: 0
-  controlID: 112
+  controlID: 48
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -114,8 +114,8 @@ MonoBehaviour:
     y: 574
     width: 681
     height: 364
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 13}
@@ -143,7 +143,7 @@ MonoBehaviour:
     y: 0
     width: 958
     height: 988
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 392}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &7
 MonoBehaviour:
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 342}
   m_MaxSize: {x: 8006, y: 8042}
   vertical: 1
-  controlID: 32
+  controlID: 49
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 33
+  controlID: 50
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -327,19 +327,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/_Prefabs
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/_Prefabs
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\Connor\Desktop\Exergaming\FYP
+  m_LastProjectPath: C:\Users\foxbl\Desktop\Exergaming\FYP
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f2280000
-    m_LastClickedID: 10482
-    m_ExpandedIDs: 00000000f228000000ca9a3bffffff7f
+    m_SelectedIDs: fa280000
+    m_LastClickedID: 10490
+    m_ExpandedIDs: 00000000f628000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -367,7 +367,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000f2280000
+    m_ExpandedIDs: 00000000f6280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -392,9 +392,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 78290000
-    m_LastClickedInstanceID: 10616
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 88290000
+    m_LastClickedInstanceID: 10632
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 80270000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -487,7 +487,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 88290000
     m_LastClickedID: 10632
-    m_ExpandedIDs: 16f5ffff00000000
+    m_ExpandedIDs: 0ed9feff62e0ffff1ef5ffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -543,9 +543,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -164.85306, y: -33.812435, z: 79.536415}
+    m_Target: {x: 12.805649, y: -60.733833, z: 81.49847}
     speed: 2
-    m_Value: {x: -164.85306, y: -33.812435, z: 79.536415}
+    m_Value: {x: 12.805649, y: -60.733833, z: 81.49847}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -569,13 +569,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.063744895, y: 0.529763, z: -0.03997348, w: -0.8448017}
+    m_Target: {x: -0.29910892, y: -0.07804066, z: 0.024552884, w: -0.9507054}
     speed: 2
-    m_Value: {x: -0.063744895, y: 0.529763, z: -0.03997348, w: -0.8448017}
+    m_Value: {x: -0.29910892, y: -0.07804066, z: 0.024552884, w: -0.9507054}
   m_Size:
-    m_Target: 212.32709
+    m_Target: 164.84943
     speed: 2
-    m_Value: 212.32709
+    m_Value: 164.84943
   m_Ortho:
     m_Target: 0
     speed: 2

@@ -49,5 +49,30 @@ public class CollisionManager : MonoBehaviour
             Debug.Log("Fallen");
         }
     }
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Lean")
+        {
+            Debug.Log("Lean");
+        }
+        else if (other.gameObject.tag == "OneLeg")
+        {
+            Debug.Log("OneLeg");
+        }
+        else if (other.gameObject.tag == "Step")
+        {
+            Debug.Log("Step");
+        }
+        else if (other.gameObject.tag == "Jump")
+        {
+            Debug.Log("Jump");
+        }
+        else if (other.gameObject.tag == "Jump2")
+        {
+            Debug.Log("Jump2");
+        }
+
+    }
+        
 
 }

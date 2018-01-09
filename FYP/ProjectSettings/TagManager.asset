@@ -9,6 +9,11 @@ TagManager:
   - Back
   - Obstacle
   - Pit
+  - Lean
+  - OneLeg
+  - Step
+  - Jump
+  - Jump2
   layers:
   - Default
   - TransparentFX
