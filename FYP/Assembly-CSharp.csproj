@@ -54,6 +54,7 @@
      <Compile Include="Assets\_Scripts\CameraShake.cs" />
      <Compile Include="Assets\_Scripts\CollisionManager.cs" />
      <Compile Include="Assets\_Scripts\PlayerController.cs" />
+     <Compile Include="Assets\_Scripts\Rotato.cs" />
      <Compile Include="Assets\_Scripts\WorldController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
