@@ -73,6 +73,30 @@ public class CollisionManager : MonoBehaviour
         }
 
     }
-        
+    //Leaving each platform
+    void OnTriggerExit(Collider other)
+    {
+        Debug.Log("Exit");
+        if (other.gameObject.tag == "Lean")
+        {
+            Debug.Log("Stop Lean");
+        }
+        else if (other.gameObject.tag == "OneLeg")
+        {
+            Debug.Log(" Stop OneLeg");
+        }
+        else if (other.gameObject.tag == "Step")
+        {
+            Debug.Log(" Stop Step");
+        }
+        else if (other.gameObject.tag == "Jump")
+        {
+            Debug.Log(" Stop Jump");
+        }
+        else if (other.gameObject.tag == "Jump2")
+        {
+            Debug.Log("Stop Jump2");
+        }
+    }
 
 }
