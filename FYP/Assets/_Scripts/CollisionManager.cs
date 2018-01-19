@@ -8,6 +8,12 @@ public class CollisionManager : MonoBehaviour
     WorldController gameController;
     Camera cam;
 
+    public bool bLean = false;
+    public bool bOneLeg = false;
+    public bool bStep = false;
+    public bool bJump = false;
+    public bool bJump2 = false; 
+
     void Start()
     {
         //access the world controller for updating speed + score
@@ -48,6 +54,28 @@ public class CollisionManager : MonoBehaviour
             gameObject.GetComponent<PlayerController>().ResetPlayer();
             Debug.Log("Fallen");
         }
+
+        if (other.gameObject.tag == "Lean")
+        {
+            bLean = true; 
+        }
+        else if (other.gameObject.tag == "OneLeg")
+        {
+            bOneLeg = true;
+        }
+        else if (other.gameObject.tag == "Step")
+        {
+            bStep = true; 
+        }
+        else if (other.gameObject.tag == "Jump")
+        {
+            bJump = true; 
+        }
+        else if (other.gameObject.tag == "Jump2")
+        {
+            bJump2 = true; 
+        }
+
     }
     void OnTriggerStay(Collider other)
     {
@@ -80,22 +108,27 @@ public class CollisionManager : MonoBehaviour
         if (other.gameObject.tag == "Lean")
         {
             Debug.Log("Stop Lean");
+            bLean = false; 
         }
         else if (other.gameObject.tag == "OneLeg")
         {
             Debug.Log(" Stop OneLeg");
+            bOneLeg = false;
         }
         else if (other.gameObject.tag == "Step")
         {
             Debug.Log(" Stop Step");
+            bStep = false; 
         }
         else if (other.gameObject.tag == "Jump")
         {
             Debug.Log(" Stop Jump");
+            bJump = false; 
         }
         else if (other.gameObject.tag == "Jump2")
         {
             Debug.Log("Stop Jump2");
+            bJump2 = false; 
         }
     }
 
