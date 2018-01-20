@@ -48,6 +48,11 @@ public class CollisionManager : MonoBehaviour
             gameObject.GetComponent<PlayerController>().ResetPlayer();
             Debug.Log("Fallen");
         }
+        else if (other.gameObject.tag == "Coin")
+        {
+            gameController.score += 20;
+            Destroy(other.gameObject);
+        }
     }
     void OnTriggerStay(Collider other)
     {

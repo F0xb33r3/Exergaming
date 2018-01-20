@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WorldController : MonoBehaviour {
 
@@ -41,11 +42,20 @@ public class WorldController : MonoBehaviour {
     public int minRand;
     public int maxRand;
 
+    public Text scoreText;
+    public Text timerText;
+    public Text gameOverText;
+
     //Obstacles
     public GameObject[] blockade = new GameObject[3];
  
-    private int score = 2;
+    public double score = 0;
+
+    public double timeLeft = 30;
     public int difficulty;
+
+    public bool gameOver;
+
 
     void Start()
     {
@@ -76,21 +86,23 @@ public class WorldController : MonoBehaviour {
 
         scrollSpeed = new Vector3(0.0f, 0.0f, speed);
 
+        gameOver = false;
+        timerText.text = "Time: " + timeLeft;
+
         StartCoroutine(Earthquake());
     }
 
     void Update()
     {
-        UpdateTrack();
-
-        //move the track
         for (int i = 0; i < TRACK_SIZE; i++)
         {
             //ScrollingWorld(trackPiece[i]);
             trackPiece[i].transform.position -= scrollSpeed;
         }
-
-        
+        UpdateTrack();
+        UpdateScore();
+        timer();
+        //move the track
     }
 
 
@@ -135,9 +147,10 @@ public class WorldController : MonoBehaviour {
                     trackers[i] = 0;
                     trackPiece[i] = Instantiate(platformLayout[trackers[i]], new Vector3(0, 0, spawnPointFar), transform.rotation) as GameObject;
                 }
+                //trackPiece[i + 1].transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+                //trackPiece[i + 2].transform.position = new Vector3(0.0f, 0.0f, 30.0f);
             }
         }
-
     }
     void ObstacleSpawn(int val)
     {
@@ -260,6 +273,37 @@ public class WorldController : MonoBehaviour {
     void ScrollingWorld(GameObject g)
     {
         g.transform.position -= scrollSpeed;
+    }
+
+    public void SetScoreText()
+    {
+        scoreText.text = "Score: " + score.ToString("F");
+    }
+    private void SetTimerText()
+    {
+        timerText.text = "Time: " + timeLeft.ToString("F");
+    }
+
+    void timer()
+    {
+        timeLeft -= Time.deltaTime;
+        SetTimerText();
+        if (timeLeft < 0)
+        {
+            //Game over
+            gameOver = true;
+            timeLeft = 0.00;
+            gameOverText.text = "Time is up!";
+            SetTimerText();
+        }
+    }
+    void UpdateScore()
+    {
+        if (!gameOver)
+        {
+            score += speed * Time.deltaTime;
+            SetScoreText();
+        } 
     }
 
     //Flashes 
