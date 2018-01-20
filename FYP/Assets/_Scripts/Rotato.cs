@@ -8,8 +8,9 @@ public class Rotato : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        Vector3 initialY = new Vector3(0, 90, 0);
+        transform.Rotate(initialY);
+    }
 	
 	// Update is called once per frame
 	void Update () {
