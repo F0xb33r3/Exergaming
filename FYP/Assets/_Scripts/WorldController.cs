@@ -48,7 +48,7 @@ public class WorldController : MonoBehaviour {
 
     //Obstacles
     public GameObject[] blockade = new GameObject[3];
- 
+
     public double score = 0;
 
     public double timeLeft = 30;
@@ -142,15 +142,23 @@ public class WorldController : MonoBehaviour {
                     }
                 }
                 //If the track piece is an exercise, the next one will be a base piece
-                else if(trackers[i] > 0)
+                else if (trackers[i] > 0)
                 {
                     trackers[i] = 0;
                     trackPiece[i] = Instantiate(platformLayout[trackers[i]], new Vector3(0, 0, spawnPointFar), transform.rotation) as GameObject;
+                    CoinSpawn(i);
                 }
                 //trackPiece[i + 1].transform.position = new Vector3(0.0f, 0.0f, 0.0f);
                 //trackPiece[i + 2].transform.position = new Vector3(0.0f, 0.0f, 30.0f);
             }
         }
+    }
+
+    void CoinSpawn(int val)
+    {
+        int randy = rand.Next(-4, 5);
+        trackPiece[val].transform.Find("ScoreOb1").Translate(randy, 2, 0);
+        trackPiece[val].transform.Find("ScoreOb2").Translate(randy, 2, 0);
     }
     void ObstacleSpawn(int val)
     {
