@@ -12,8 +12,9 @@ public class CollisionManager : MonoBehaviour
     public bool bOneLeg = false;
     public bool bStep = false;
     public bool bJump = false;
-    public bool bJump2 = false; 
-
+    public bool bJump2 = false;
+    public bool bBase = false; 
+        
     void Start()
     {
         //access the world controller for updating speed + score
@@ -53,6 +54,9 @@ public class CollisionManager : MonoBehaviour
         {
             gameObject.GetComponent<PlayerController>().ResetPlayer();
             Debug.Log("Fallen");
+
+            //remove this later lolz
+          //  bBase = true; 
         }
 
         if (other.gameObject.tag == "Lean")
@@ -74,6 +78,10 @@ public class CollisionManager : MonoBehaviour
         else if (other.gameObject.tag == "Jump2")
         {
             bJump2 = true; 
+        }
+        else if (other.gameObject.tag == "Base")
+        {
+            bBase = true; 
         }
 
     }
@@ -98,6 +106,10 @@ public class CollisionManager : MonoBehaviour
         else if (other.gameObject.tag == "Jump2")
         {
             Debug.Log("Jump2");
+        }
+        else if (other.gameObject.tag == "Base")
+        {
+            Debug.Log("Base");
         }
 
     }
@@ -129,6 +141,11 @@ public class CollisionManager : MonoBehaviour
         {
             Debug.Log("Stop Jump2");
             bJump2 = false; 
+        }
+        else if (other.gameObject.tag == "Base")
+        {
+            Debug.Log("Stop Base");
+            bBase = false;
         }
     }
 

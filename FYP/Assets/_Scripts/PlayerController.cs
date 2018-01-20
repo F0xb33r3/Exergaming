@@ -6,114 +6,51 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
     private Rigidbody rb;
+    
+    private enum Side { Left, Middle, Right};
+    int CurrentSide;
 
-	private enum Direction {None, LeaningLeft, LeaningRight, Jumping, JumpingOnLeftLeg, JumpingOnRightLeg, BalancingLeftLeg, BalancingRightLeg, StepRight, StepUp, StepDown, Stepleft};
-    int CurrentDirection;
+    private bool inTheAir = false; 
 
     CollisionManager collisionManager;
 
-    private float movementX = 2.0f;
-    private float movementY = 0.5f; 
+    private float movementX = 3.5f;
+    private float movementY = 1.4f;
+    private float correction = 0.3f;
+    private float resetValue = 3.0f;  
 
     void Start () //run before randering a frame
     {
         rb = GetComponent<Rigidbody>();
-		CurrentDirection = (int)Direction.None;
-        collisionManager = GetComponent<CollisionManager>(); 
+        collisionManager = GetComponent<CollisionManager>();
+        CurrentSide = (int)Side.Middle; 
     }
 
-    void FixedUpdate () //run before perform phisical cacluations
+  
+    void Update() //run before perform phisical cacluations
 	{
         //setting of aim
 
-        // One Leg
-        if (Input.GetKeyDown(KeyCode.RightArrow) && collisionManager.bOneLeg == true && !(CurrentDirection == (int)Direction.BalancingRightLeg))
-        {
-            CurrentDirection = (int)Direction.BalancingRightLeg;
-            rb.MovePosition(transform.position += new Vector3(movementX, 0, 0));
-            Debug.Log(CurrentDirection);
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow) && collisionManager.bOneLeg == true && !(CurrentDirection == (int)Direction.BalancingLeftLeg))
-        {
-            CurrentDirection = (int)Direction.BalancingLeftLeg;
-            rb.MovePosition(transform.position += new Vector3(-movementX, 0, 0));
-            Debug.Log(CurrentDirection);
-        }
-        else
 
-      // Jumping
-      if (Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.UpArrow) && collisionManager.bJump == true && !(CurrentDirection == (int)Direction.JumpingOnRightLeg))
-        {
-            CurrentDirection = (int)Direction.JumpingOnRightLeg;
-            rb.MovePosition(transform.position += new Vector3(movementX, movementY, 0));
-            Debug.Log(CurrentDirection);
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow) && collisionManager.bJump == true && !(CurrentDirection == (int)Direction.JumpingOnLeftLeg))
-        {
-            CurrentDirection = (int)Direction.JumpingOnLeftLeg;
-            rb.MovePosition(transform.position += new Vector3(-movementX, movementY, 0));
-            Debug.Log(CurrentDirection);
-        }
-        else if (Input.GetKey(KeyCode.UpArrow) && collisionManager.bJump == true)
-        {
-            rb.MovePosition(transform.position += new Vector3(0, movementY, 0));
-            Debug.Log(CurrentDirection);
-        }
-        else
+        CheckSides();
 
-        // Jumping 2
-      if (Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.UpArrow) && collisionManager.bJump2 == true && !(CurrentDirection == (int)Direction.JumpingOnRightLeg))
-        {
-            CurrentDirection = (int)Direction.JumpingOnRightLeg;
-            rb.MovePosition(transform.position += new Vector3(movementX, movementY, 0));
-            Debug.Log(CurrentDirection);
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow) && collisionManager.bJump2 == true && !(CurrentDirection == (int)Direction.JumpingOnLeftLeg))
-        {
-            CurrentDirection = (int)Direction.JumpingOnLeftLeg;
-            rb.MovePosition(transform.position += new Vector3(-movementX, movementY, 0));
-            Debug.Log(CurrentDirection);
-        }
-        else if (Input.GetKey(KeyCode.UpArrow) && collisionManager.bJump2 == true )
-        {
-            rb.MovePosition(transform.position += new Vector3(0, movementY, 0));
-            Debug.Log(CurrentDirection);
-        }
-        else
+        if (Input.GetKeyDown(KeyCode.RightArrow) && !(CurrentSide == (int)Side.Right)){
+            rb.AddForce( Vector3.right * movementX, ForceMode.Impulse);
 
-      // Leaning
-      if (Input.GetKeyDown(KeyCode.RightArrow) && collisionManager.bLean == true && (!(CurrentDirection == (int)Direction.LeaningRight)))
+        } else if (Input.GetKeyDown(KeyCode.LeftArrow) && !(CurrentSide == (int)Side.Left))
         {
-            CurrentDirection = (int)Direction.LeaningRight;
-            rb.MovePosition(transform.position += new Vector3(movementX, 0, 0));
-            Debug.Log(CurrentDirection);
+            rb.AddForce(Vector3.left * movementX, ForceMode.Impulse);
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow) && collisionManager.bLean == true && (!(CurrentDirection == (int)Direction.LeaningLeft)))
-        { 
-            CurrentDirection = (int)Direction.LeaningLeft;
-            rb.MovePosition(transform.position += new Vector3(-movementX, 0, 0));
-            Debug.Log(CurrentDirection);
+     
+        if (Input.GetKey(KeyCode.UpArrow) && (collisionManager.bJump == true || collisionManager.bJump2 == true) && !inTheAir)
+        {
+            rb.AddForce(Vector3.up * movementY, ForceMode.VelocityChange);
+        }
 
-        }
-        else 
-        
-        //Stepping
-        if (Input.GetKey(KeyCode.LeftArrow) && collisionManager.bStep == true && (!(CurrentDirection == (int)Direction.LeaningLeft)))
-        {
-            Debug.Log(CurrentDirection);
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow) && collisionManager.bStep == true && (!(CurrentDirection == (int)Direction.LeaningLeft)))
-        {
-            Debug.Log(CurrentDirection);
-        }
-        else
-        {
-            CurrentDirection = (int)Direction.None;
-            Debug.Log(CurrentDirection);
-        }
-        
-   
-	}
+        CheckSides();
+        ResetPosition();
+
+    }
 
 	void CheckBalance(){//TODO
 		//user does have to be in a stable positon before the next input is evaluated
@@ -121,7 +58,48 @@ public class PlayerController : MonoBehaviour {
 		 * wait...
 		}*/
 	} 
-		
+
+    void CheckSides()
+    {
+        if (rb.position.x >= (movementX))
+        {
+            CurrentSide = (int)Side.Right;
+        }
+        else if (rb.position.x < movementX - correction || rb.position.x > -movementX + correction)
+        {
+            CurrentSide = (int)Side.Middle;
+        }
+        else if (rb.position.x <= (-movementX))
+        {
+            CurrentSide = (int)Side.Left;
+        }
+
+        if (rb.position.y >= 1.5f)
+        {
+            inTheAir = true;
+        }
+        else
+        {
+            inTheAir = false;
+        }
+
+    }
+
+    void ResetPosition()
+    {
+
+        if (rb.position.x > resetValue + correction)
+        {
+            rb.position = new Vector3(movementX, rb.position.y, 0);
+        }
+
+        if (rb.position.x < -resetValue - correction)
+        {
+            rb.position = new Vector3(-movementX, rb.position.y, 0);
+        }
+    }
+
+    
     public void ResetPlayer()
     {
         gameObject.transform.position = new Vector3(0, 1, 0);
