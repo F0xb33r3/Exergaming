@@ -124,12 +124,12 @@ GameObject:
   - component: {fileID: 213662108}
   - component: {fileID: 213662107}
   - component: {fileID: 213662106}
-  - component: {fileID: 213662110}
   - component: {fileID: 213662111}
   - component: {fileID: 213662112}
+  - component: {fileID: 213662113}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,21 +200,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &213662110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 213662105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3ee44460d7b4734d86d77e90a34e893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  fJumpHigh: 0
-  fSizeOfOnePath: 0
-  fTimeOut: 0
 --- !u!54 &213662111
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -241,6 +226,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17f4cb8cc0752e7419248847836b5e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &213662113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 213662105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac44be20785e8cb4094f6f6d72dde1c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xVal: 2.75
+  translateSpeed: 10
+  testSpeed: 0.1
+  basic: 0
+  lean: 0
+  oneLeg: 0
+  step: 0
+  jump: 0
+  jump2: 0
 --- !u!1 &266706143
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +300,7 @@ MonoBehaviour:
   spawnPoint: 30
   spawnPointFar: 60
   minRand: 1
-  maxRand: 5
+  maxRand: 2
   scoreText: {fileID: 1009907257}
   timerText: {fileID: 1226377378}
   gameOverText: {fileID: 427821989}
