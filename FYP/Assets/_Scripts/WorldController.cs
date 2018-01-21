@@ -148,8 +148,15 @@ public class WorldController : MonoBehaviour {
                     trackPiece[i] = Instantiate(platformLayout[trackers[i]], new Vector3(0, 0, spawnPointFar), transform.rotation) as GameObject;
                     CoinSpawn(i);
                 }
-                //trackPiece[i + 1].transform.position = new Vector3(0.0f, 0.0f, 0.0f);
-                //trackPiece[i + 2].transform.position = new Vector3(0.0f, 0.0f, 30.0f);
+                if (TRACK_SIZE > i + 1)
+                {
+                    trackPiece[i + 1].transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+                }
+                if (TRACK_SIZE > i + 2)
+                {
+                    trackPiece[i + 2].transform.position = new Vector3(0.0f, 0.0f, 30.0f);
+                }
+                
             }
         }
     }
