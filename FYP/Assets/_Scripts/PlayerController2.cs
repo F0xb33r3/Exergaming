@@ -26,6 +26,7 @@ public class PlayerController2 : MonoBehaviour {
 	void Update () {
 
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0 );
+		gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
         Inputs();
         if (lean || basic)
         {
@@ -118,6 +119,6 @@ public class PlayerController2 : MonoBehaviour {
     public void ResetPlayer()
 	{
         gameObject.transform.position = new Vector3(0, 3, 0);
-        gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+		gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 }

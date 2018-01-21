@@ -118,6 +118,7 @@ public class DFlowNetwork : MonoBehaviour {
 		stream.Read (buffer, 0, sizeof(Int32));
 		newPackage.clientIndex = System.BitConverter.ToInt32 (buffer, 0);
 
+		//Client name
 		stream.Read (buffer, 0, 128 * sizeof(char));
 		newPackage.clientName = Encoding.ASCII.GetString (buffer);
 
@@ -137,7 +138,8 @@ public class DFlowNetwork : MonoBehaviour {
 	}
 
 	private void EstablishDFlowConnection() {
-		
+
+		//Socket to create a connection to initiate session with D-Flow
 		initSocket = new Socket (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
 		Debug.Log ("Trying to establish a connection to D-Flow");
@@ -171,6 +173,8 @@ public class DFlowNetwork : MonoBehaviour {
 			} catch (Exception err) {
 				Debug.Log (err.ToString ());
 			}
+
+			Debug.Log (newPackage.packageType);
 
 			if (newPackage.packageType == DFlowPackage.PackageType.SERVER_INIT) {
 				clientIndex = newPackage.clientIndex;
@@ -223,6 +227,8 @@ public class DFlowNetwork : MonoBehaviour {
 			if (newPackage.packageType == DFlowPackage.PackageType.UPDATE) {
 				
 				Array.Copy (newPackage.data, outputs, 256);
+
+				Debug.Log (outputs [0] + " " + outputs [1]);
 
 				OnNewData (this);
 

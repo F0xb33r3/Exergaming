@@ -14,6 +14,8 @@ public class CameraShake : MonoBehaviour
     public float shakeAmount = 0.3f;
     float decreaseFactor = 1.0f;
 
+	private float persistentShakeDuration = 0f;
+
     Vector3 originalPos;
 
     void Awake()
@@ -33,7 +35,7 @@ public class CameraShake : MonoBehaviour
     {
         if (shakeDuration > 0)
         {
-            camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
+			camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount * Mathf.Exp(3 * (shakeDuration - persistentShakeDuration));
 
             shakeDuration -= Time.deltaTime * decreaseFactor;
         }
@@ -46,5 +48,6 @@ public class CameraShake : MonoBehaviour
     public void SetTimer(float v)
     {
         shakeDuration = v;
+		persistentShakeDuration = v;
     }
 }
